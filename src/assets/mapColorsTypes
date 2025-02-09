@@ -1,0 +1,22 @@
+export const mapColorsTypes = {
+
+ "Normal": "#F1E6B2",
+"Fighting": "#F44236",
+"Flying": "#6EC1E4",
+"Poison": "#9B3D57",
+"Ground": "#B27B57",
+"Rock": "#D1B38C",
+"Bug": "#9AEB4D",
+"Ghost": "#5E3C8B",
+"Steel": "#B7D0D2",
+"Fire": "#FF5722",
+"Water": "#3B82F6",
+"Grass": "#66D22E",
+"Electric": "#FFEB3B",
+"Psychic": "#D83196",
+"Ice": "#58B5D0",
+"Dragon": "#6B35D7",
+"Dark": "#5A4134",
+"Fairy": "#F4A6D2",
+  
+};
