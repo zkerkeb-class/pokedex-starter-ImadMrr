@@ -1,12 +1,47 @@
-import { useState, useEffect } from 'react'
-import './App.css'
-import pokemons from './assets/pokemons'
-import { pokemonImages } from './assets/imageLibrary';
-import { mapTypes } from './assets/mapTypes';
-import { mapColorsTypes } from './assets/mapColorsTypes';
-import { imageShiny } from './assets/imageShiny';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import Main from './assets/components/Menu/main';
+import List from './assets/components/Pokemons/listPokemons';
+import PokemonCard from './assets/components/PokemonCard/card';
+import Fight from './assets/components/Fight/fight';
+import Search from './assets/components/PokemonSearch/search';
 
 
+function App() {
+
+    // état de l'id 
+    const [id, setCurrentId] = (useState(0)); //Premier pokemon commence à 0
+    // console.log("ID : ", id);
+
+    return (
+      <Router>
+          <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/listPokemon" element={<List />} />
+              <Route path="/card" element={<PokemonCard id={id} />} />
+              <Route path="/fight" element={<Fight />} />
+              <Route path="/search" element={<Search />} />
+          </Routes>
+      </Router>
+    );
+
+}export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
  // -------------------BACKGROUND COLOR FUNCTIONS--------------------
  function getCardBackground(types) {
   if (types.length === 1) {
@@ -122,7 +157,7 @@ function App() {
 
 
 
-      {/* Boutons en bas à gauche et à droite */}
+    
       <div style={{ position: 'fixed', bottom: '20px', left: '20px' }}>
           
           <button onClick={decrementId}>-</button>
@@ -141,4 +176,5 @@ function App() {
   )
 }
 
-export default App
+}export default App
+*/

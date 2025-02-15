@@ -38,9 +38,14 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   position: relative;
+  z-index: 1; /* Ajouté pour s'assurer que la carte reste en dessous des boutons */
 }
 
-
+.change-buttons {
+  position: fixed;
+  bottom: 20px;
+  z-index: 2; /* Ajouté pour s'assurer que les boutons restent au-dessus de la carte */
+}
 
 
 .name-hp {
