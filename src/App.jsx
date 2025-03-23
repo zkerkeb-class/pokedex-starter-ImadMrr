@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
-import Main from './assets/components/Menu/main';
-import List from './assets/components/Pokemons/listPokemons';
+import Main from './assets/Pages/Menu/main';
+import List from './assets/Pages/Pokemons/listPokemons';
 import PokemonCard from './assets/components/PokemonCard/card';
-import Fight from './assets/components/Fight/fight';
-import Search from './assets/components/PokemonSearch/search';
+import Fight from './assets/Pages/Fight/fight';
+import Search from './assets/Pages/PokemonSearch/search';
+import Create from './assets/APIcall/create';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path="/card" element={<PokemonCard id={id} />} />
               <Route path="/fight" element={<Fight />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/create" element={<Create />} />
           </Routes>
       </Router>
     );

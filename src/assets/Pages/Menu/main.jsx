@@ -35,6 +35,12 @@ function Main() {
                     <button>Search</button>
                 </Link>
             </div>
+
+            <div className="Choice5">
+                <Link to="/create">
+                    <button>Create</button>
+                </Link>
+            </div>
   
         </div>
       

@@ -25,7 +25,7 @@ function ShinyChanges({id}) {
     // console.log("IMAGE : ", image);
 
     // -------------------SWITCH IMAGE FUNCTIONS--------------------------
-    const changeImage = () => {
+    /*const changeImage = () => {
         setClicked(!clicked); 
         setImage(clicked ? pokemonImages[pokemonId] : shiny); //On passe à l'image shiny
     };
@@ -34,12 +34,12 @@ function ShinyChanges({id}) {
     useEffect(() => {
         setClicked(false);
         setImage(pokemonImages[pokemonId]);
-    }, [id]);
+    }, [id]);*/
 
 
     return (
         <div>
-            <img src={image} className="pokemon-img"  onClick={changeImage} style={{ cursor: 'pointer' }} />
+            <img src={image} className="pokemon-img" style={{ cursor: 'pointer' }} />
         </div>
     )};
     export default ShinyChanges;
