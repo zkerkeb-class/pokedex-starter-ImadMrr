@@ -10,6 +10,7 @@ export const fetchPokemonById = async (id) => {
       }
   
       const data = await response.json();
+      console.log("DATA by ID ", id, " : ", data);
       return data; // Retourne l'objet Pokémon récupéré
     } catch (error) {
       console.error("Erreur lors de la récupération du Pokémon :", error);

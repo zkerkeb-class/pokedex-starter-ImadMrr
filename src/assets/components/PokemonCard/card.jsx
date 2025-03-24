@@ -51,7 +51,6 @@ function PokemonCard({id}) {
 
 
     const types = pokemon.type
-    console.log("TYPES : ", types);
     const imageTypes = types.map((type) => mapTypes[type]); // mappage des types
     
 

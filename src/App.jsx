@@ -1,18 +1,33 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Main from './assets/Pages/Menu/main';
 import List from './assets/Pages/Pokemons/listPokemons';
 import PokemonCard from './assets/components/PokemonCard/card';
 import Fight from './assets/Pages/Fight/fight';
 import Search from './assets/Pages/PokemonSearch/search';
 import Create from './assets/APIcall/create';
+import { getFirstId } from './assets/APIcall/getFirstId';
+import UpdatePokemon from './assets/APIcall/update';
+import DeletePokemon from './assets/APIcall/delete';
 
 
 function App() {
 
-    // état de l'id 
-    const [id, setCurrentId] = (useState(0)); //Premier pokemon commence à 0
-    // console.log("ID : ", id);
+    const [id, setCurrentId] = useState(null);
+
+    useEffect(() => {
+        const fetchFirstId = async () => {
+            const firstId = await getFirstId();
+            setCurrentId(firstId.firstID);
+        };
+
+        fetchFirstId();
+    }, []);
+
+    if (id === null) {
+        return <div>Chargement...</div>;
+    }
+    
 
     return (
       <Router>
@@ -23,6 +38,8 @@ function App() {
               <Route path="/fight" element={<Fight />} />
               <Route path="/search" element={<Search />} />
               <Route path="/create" element={<Create />} />
+              <Route path="/update" element={<UpdatePokemon />} />
+              <Route path="/delete" element={<DeletePokemon />} />
           </Routes>
       </Router>
     );

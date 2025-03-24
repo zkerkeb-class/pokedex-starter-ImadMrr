@@ -41,6 +41,18 @@ function Main() {
                     <button>Create</button>
                 </Link>
             </div>
+
+            <div className="Choice6">
+                <Link to="/update">
+                    <button>Update</button>
+                </Link>
+            </div>
+
+            <div className="Choice7">
+                <Link to="/delete">
+                    <button>Delete</button>
+                </Link>
+            </div>
   
         </div>
       
