@@ -18,8 +18,8 @@ function Main() {
             </div>
           
             <div className="Choice2">
-                <Link to="/card">
-                    <button>Pokedex</button>
+                <Link to="/quizz">
+                    <button>Quizz</button>
                 </Link>
             </div>
   

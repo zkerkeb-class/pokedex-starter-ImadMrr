@@ -1,0 +1,64 @@
+.fight-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .selection {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  
+  .battlefield {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 40px 0;
+  }
+  
+  .pokemon {
+    text-align: center;
+  }
+  
+  .pokemon img {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .versus img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .actions {
+    margin-top: 20px;
+  }
+  
+  .actions button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .message {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .winner {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .winner h1 {
+    font-size: 3rem;
+    color: #4caf50;
+  }
+  
+  .winner-image {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+  }

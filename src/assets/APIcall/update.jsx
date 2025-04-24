@@ -15,10 +15,11 @@ function UpdatePokemon() {
       HP: 0,
       Attack: 0,
       Defense: 0,
-      'Sp. Attack': 0,
-      'Sp. Defense': 0,
+      SpAttack: 0,
+      SpDefense: 0,
       Speed: 0,
     },
+    image: '', // Ajout de la propriété image
   });
   const [message, setMessage] = useState('');
 
@@ -60,7 +61,15 @@ function UpdatePokemon() {
       setFormData({
         name: fullPokemon.name.french,
         type: fullPokemon.type.length === 1 ? [fullPokemon.type[0], ''] : fullPokemon.type,
-        base: fullPokemon.base,
+        base: {
+          HP: fullPokemon.base.HP,
+          Attack: fullPokemon.base.Attack,
+          Defense: fullPokemon.base.Defense,
+          specialAttack: fullPokemon.base['Sp. Attack'], // Mappez ici
+          specialDefense: fullPokemon.base['Sp. Defense'], // Mappez ici
+          Speed: fullPokemon.base.Speed,
+        },
+        image: fullPokemon.image || '', // Pré-remplir l'image si elle existe
       });
     } catch (error) {
       console.error('Erreur lors de la récupération du Pokémon :', error);
@@ -109,7 +118,9 @@ function UpdatePokemon() {
       });
 
       if (!response.ok) {
-        throw new Error(`Erreur : ${response.status}`);
+        const errorText = await response.text();
+        console.error('Erreur lors de la mise à jour du Pokémon :', errorText);
+        throw new Error(errorText); // Lève une vraie erreur lisible
       }
 
       return await response.json();
@@ -127,16 +138,22 @@ function UpdatePokemon() {
     }
 
     try {
+      
+      const base = {
+        HP: formData.base.HP,
+        Attack: formData.base.Attack,
+        Defense: formData.base.Defense,
+        'Sp. Attack': formData.base.specialAttack, // Mappez ici
+        'Sp. Defense': formData.base.specialDefense, // Mappez ici
+        Speed: formData.base.Speed,
+      };
+
       const updatedData = {
         id: selectedPokemon.id, // Inclure l'ID du Pokémon
         name: { french: formData.name }, // Assurer que 'name' est sous forme d'objet
         type: formData.type.filter((t) => t), // Enlever les types vides
-        hp: formData.base.HP,
-        attack: formData.base.Attack,
-        defense: formData.base.Defense,
-        SpAttack: formData.base['Sp. Attack'],
-        SpDefense: formData.base['Sp. Defense'],
-        speed: formData.base.Speed,
+        base: base,
+        image: formData.image, // Inclure l'image dans les données mises à jour
       };
 
       await updatePokemon(selectedPokemon.id, updatedData);
@@ -192,6 +209,13 @@ function UpdatePokemon() {
             type="text"
             value={formData.type[1]}
             onChange={(e) => handleTypeChange(1, e.target.value)}
+          />
+
+          <label>Image :</label>
+          <input
+            type="text"
+            value={formData.image}
+            onChange={(e) => handleChange(e, 'image')}
           />
 
           {Object.entries(formData.base).map(([key, value]) => (

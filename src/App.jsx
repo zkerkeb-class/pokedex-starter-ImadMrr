@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './assets/Pages/Menu/main';
 import List from './assets/Pages/Pokemons/listPokemons';
-import PokemonCard from './assets/components/PokemonCard/card';
+import Quizz from './assets/Pages/Quizz/pokeQuizz';
 import Fight from './assets/Pages/Fight/fight';
 import Search from './assets/Pages/PokemonSearch/search';
 import Create from './assets/APIcall/create';
@@ -34,7 +34,7 @@ function App() {
           <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/listPokemon" element={<List />} />
-              <Route path="/card" element={<PokemonCard id={id} />} />
+              <Route path="/quizz" element={<Quizz/>} />
               <Route path="/fight" element={<Fight />} />
               <Route path="/search" element={<Search />} />
               <Route path="/create" element={<Create />} />

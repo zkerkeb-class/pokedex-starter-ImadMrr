@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongose": "^0.0.2-security",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -25,6 +29,20 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "nodemon": "^3.1.9",
     "vite": "^6.2.2"
-  }
+  },
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zkerkeb-class/pokedex-starter-ImadMrr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zkerkeb-class/pokedex-starter-ImadMrr/issues"
+  },
+  "homepage": "https://github.com/zkerkeb-class/pokedex-starter-ImadMrr#readme"
 }

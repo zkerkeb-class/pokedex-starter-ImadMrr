@@ -21,6 +21,7 @@ function CreatePokemon() {
   const [spDefense, setSpDefense] = useState('');
   const [speed, setSpeed] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   // Fonction pour remplir automatiquement les champs
   const handleAutoFill = () => {
@@ -57,6 +58,7 @@ function CreatePokemon() {
 
     const newPokemon = {
       name,
+      image: imageUrl,
       type: typesToSend,  // Tableau des types (1 ou 2 types)
       HP: hp,
       Attack: attack,
@@ -96,6 +98,17 @@ function CreatePokemon() {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label>URL de l'image :</label>
+          <input
+            type="text"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://exemple.com/image.jpg"
             required
           />
         </div>
