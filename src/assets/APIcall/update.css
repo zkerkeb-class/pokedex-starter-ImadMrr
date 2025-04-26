@@ -39,7 +39,7 @@
     border-radius: 8px;
     max-height: 150px;
     overflow-y: auto;
-    background: #ecf0f1;
+    background: #3e94ae;
     list-style: none;
     padding: 0;
   }
@@ -50,7 +50,7 @@
   }
   
   .suggestions-list li:hover {
-    background: #d5dbdb;
+    background: #bfdada;
   }
   
   .update-form {

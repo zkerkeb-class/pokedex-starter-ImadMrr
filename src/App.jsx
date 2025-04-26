@@ -9,11 +9,14 @@ import Create from './assets/APIcall/create';
 import { getFirstId } from './assets/APIcall/getFirstId';
 import UpdatePokemon from './assets/APIcall/update';
 import DeletePokemon from './assets/APIcall/delete';
+import Login from './assets/Pages/Login/login';
 
 
 function App() {
 
     const [id, setCurrentId] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 👈 ajouté ici
+
 
     useEffect(() => {
         const fetchFirstId = async () => {
@@ -40,7 +43,7 @@ function App() {
               <Route path="/create" element={<Create />} />
               <Route path="/update" element={<UpdatePokemon />} />
               <Route path="/delete" element={<DeletePokemon />} />
-          </Routes>
+              <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} /> </Routes>
       </Router>
     );
 

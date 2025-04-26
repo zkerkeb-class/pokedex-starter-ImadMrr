@@ -4,6 +4,9 @@ import { fetchPokemonById } from './getbyId';
 import './update.css';
 
 function DeletePokemon() {
+
+  const token = localStorage.getItem('token');
+
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [pokemons, setPokemons] = useState([]);
@@ -51,6 +54,7 @@ function DeletePokemon() {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': token,
         },
         body: JSON.stringify({ id }),
       });

@@ -73,8 +73,8 @@ function PokemonCard({id}) {
                 <h3 className="hp">{pokemon.base.HP} HP</h3>
             </div>
 
-            {/*<ShinyChanges id={id} />   */}
-            <img src={pokemon.image} className="pokemon-img" style={{ cursor: 'pointer' }} />
+            {<ShinyChanges id={id} />   }
+            {/*<img src={pokemon.image} className="pokemon-img" style={{ cursor: 'pointer' }} />*/}
 
             <div className="stats">
             <h3>Attack: {pokemon.base.Attack}</h3>

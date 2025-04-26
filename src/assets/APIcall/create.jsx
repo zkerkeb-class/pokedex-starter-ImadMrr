@@ -10,6 +10,9 @@ const pokemonTypes = [
 const API_URL = "http://localhost:3000/api/create"; // Assure-toi que ton API accepte cette route
 
 function CreatePokemon() {
+
+  const token = localStorage.getItem('token');
+
   // États pour gérer les valeurs des champs du formulaire
   const [name, setName] = useState('');
   const [type1, setType1] = useState('');
@@ -73,6 +76,7 @@ function CreatePokemon() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': token,
         },
         body: JSON.stringify(newPokemon),
       });

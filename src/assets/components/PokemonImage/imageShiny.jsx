@@ -1,45 +1,49 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import '../../../App.css';
-import { pokemonImages } from '../../imageLibrary';
-import { imageShiny } from '../../imageShiny';
-import pokemons from '../../pokemons'
+import { fetchPokemonById } from '../../APIcall/getbyId';
+import { getShinyImageById } from '../../APIcall/getShiny';
 
+function ShinyChanges({ id }) {
+  const [image, setImage] = useState('');
+  const [originalImage, setOriginalImage] = useState('');
+  const [isShiny, setIsShiny] = useState(false);
 
-function ShinyChanges({id}) {
-
-    const pokemon = pokemons[String(id)] 
-    const pokemonId = pokemon.id
-
-    // console.log("POKEMON ID : ", pokemonId);
-    // console.log("MON ID : ", id);
-
-    // état du clique
-    const [clicked, setClicked] = useState(false);
-
-    // const image = pokemonImages[pokemonId];
-    const shiny = imageShiny[pokemonId];
-
-    // état de l'image du Pokemon
-    const [image, setImage] = useState(pokemonImages[pokemonId]); 
-    // console.log("PokeID : ", pokemonId);
-    // console.log("IMAGE : ", image);
-
-    // -------------------SWITCH IMAGE FUNCTIONS--------------------------
-    /*const changeImage = () => {
-        setClicked(!clicked); 
-        setImage(clicked ? pokemonImages[pokemonId] : shiny); //On passe à l'image shiny
+  // Récupérer l'image normale au début
+  useEffect(() => {
+    const fetchImage = async () => {
+      const pokemon = await fetchPokemonById(id);
+      setOriginalImage(pokemon.image);
+      setImage(pokemon.image);
+      setIsShiny(false);
     };
+    fetchImage();
+  }, [id]);
 
-    // useEffect nous permet de changer l'image et de sortir du mode shiny lorsque react detecte un changement d'id
-    useEffect(() => {
-        setClicked(false);
-        setImage(pokemonImages[pokemonId]);
-    }, [id]);*/
+  // Gestion du clic
+  const handleImageClick = async () => {
+    if (!isShiny) {
+      const shinyImage = await getShinyImageById(id);
+      if (shinyImage) {
+        setImage(shinyImage);
+        setIsShiny(true);
+      }
+    } else {
+      setImage(originalImage);
+      setIsShiny(false);
+    }
+  };
 
+  return (
+    <div>
+      <img 
+        src={image} 
+        className="pokemon-img" 
+        alt="Pokemon" 
+        style={{ cursor: 'pointer' }} 
+        onClick={handleImageClick}
+      />
+    </div>
+  );
+}
 
-    return (
-        <div>
-            <img src={image} className="pokemon-img" style={{ cursor: 'pointer' }} />
-        </div>
-    )};
-    export default ShinyChanges;
+export default ShinyChanges;

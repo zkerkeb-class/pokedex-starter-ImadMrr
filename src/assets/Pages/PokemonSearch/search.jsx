@@ -40,13 +40,23 @@ function Search() {
     const filteredPokemons = pokemons.filter((pokemon) => {
         const matchesName = pokemon.name.french.toLowerCase().includes(searchTerm.toLowerCase());
 
-        // Si les types sont sélectionnés
         if (selectedType1 && selectedType2) {
-            // Vérifie si le Pokémon a exactement ces deux types
-            const hasBothTypes = pokemon.type.includes(selectedType1) && pokemon.type.includes(selectedType2);
-            return matchesName && hasBothTypes;
+            if (selectedType1 === selectedType2) {
+                // Si même type sélectionné deux fois → uniquement les Pokémon monotype
+                return (
+                    matchesName &&
+                    pokemon.type.length === 1 &&
+                    pokemon.type[0] === selectedType1
+                );
+            } else {
+                // Deux types différents → Pokémon qui a les deux
+                return (
+                    matchesName &&
+                    pokemon.type.includes(selectedType1) &&
+                    pokemon.type.includes(selectedType2)
+                );
+            }
         } else if (selectedType1) {
-            // Si un seul type est sélectionné
             return matchesName && pokemon.type.includes(selectedType1);
         } else if (selectedType2) {
             return matchesName && pokemon.type.includes(selectedType2);
