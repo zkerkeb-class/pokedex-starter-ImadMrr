@@ -56,6 +56,9 @@ function Main() {
             <button>Search</button>
           </Link>
         </div>
+        <div className="Choice10">
+          <button onClick={() => handleProtectedAction('/favorites')}>Favorites</button>
+        </div>
         <div className="Choice5">
           <button onClick={() => handleProtectedAction('/create')}>Create</button>
         </div>

@@ -10,6 +10,7 @@ import { getFirstId } from './assets/APIcall/getFirstId';
 import UpdatePokemon from './assets/APIcall/update';
 import DeletePokemon from './assets/APIcall/delete';
 import Login from './assets/Pages/Login/login';
+import Favorites from './assets/Pages/Favorites/favorites';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
               <Route path="/fight" element={<Fight />} />
               <Route path="/search" element={<Search />} />
               <Route path="/create" element={<Create />} />
+              <Route path="/favorites" element={<Favorites />} />
               <Route path="/update" element={<UpdatePokemon />} />
               <Route path="/delete" element={<DeletePokemon />} />
               <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} /> </Routes>

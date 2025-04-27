@@ -85,75 +85,105 @@ function Fight() {
 
   const resolveTurn = async ({ player1, player2 }) => {
     setProcessing(true);
-
-    const p1 = pokemon1;
-    const p2 = pokemon2;
-    const messages = [];
-
-    const first = p1.base.Speed >= p2.base.Speed ? 'player1' : 'player2';
+  
+    const first = pokemon1.base.Speed >= pokemon2.base.Speed ? 'player1' : 'player2';
     const second = first === 'player1' ? 'player2' : 'player1';
-
-    const getAction = (player) => player === 'player1' ? player1 : player2;
-    const getPokemon = (player) => player === 'player1' ? pokemon1 : pokemon2;
-    const getTarget = (player) => player === 'player1' ? pokemon2 : pokemon1;
-    const getSetTarget = (player) => player === 'player1' ? setPokemon2 : setPokemon1;
-
-    const doAttack = async (attacker, defender, setDefender, defenderAction) => {
-      if (defenderAction === 'dodge') {
-        const dodgeSuccess = Math.random() >= 0.33;
-        if (dodgeSuccess) {
-          return `${defender.name.french} a esquivé l'attaque de ${attacker.name.french} avec agilité !`;
-        } else {
-          messages.push(`${defender.name.french} a tenté d’esquiver mais a échoué.`);
-          // On inflige quand même les dégâts
-        }
-      }
-
+  
+    const messages = [];
+  
+    // Utiliser les setters pour être sûr d'avoir les bons états à jour
+    let p1 = { ...pokemon1 };
+    let p2 = { ...pokemon2 };
+  
+    const doAttack = (attacker, defender) => {
       const damage = attacker.base.Attack;
       const newHP = Math.max(defender.currentHP - damage, 0);
-      setDefender({ ...defender, currentHP: newHP });
-      await updateHP(defender.id, newHP);
-      return `${attacker.name.french} a infligé ${damage} dégâts à ${defender.name.french}`;
+      return { newHP, damage };
     };
-
-    if (player1 === 'dodge' && player2 === 'dodge') {
-      messages.push("Les deux Pokémon sont sur la défensive. Aucun dégât ce tour.");
-    } else {
-      for (const player of [first, second]) {
-        const action = player === 'player1' ? player1 : player2;
-        const actor = getPokemon(player);
-        const target = getTarget(player);
-        const targetAction = player === 'player1' ? player2 : player1;
-        const setTarget = getSetTarget(player);
-
-        if (actor.currentHP <= 0) continue;
-
-        if (action === 'attack') {
-          const attackMsg = await doAttack(actor, target, setTarget, targetAction);
-          if (attackMsg) {
-            if (player1 === 'attack' && player2 === 'attack') {
-              if (player === first) {
-                messages.push(`${attackMsg} (attaque prioritaire)`);
-              } else {
-                messages.push(attackMsg);
-              }
-            } else {
-              messages.push(attackMsg);
-            }
-          }
-
-        } else if (action === 'dodge') {
-          const wasTargetedByAttack =
-            (player === 'player1' && player2 === 'attack') ||
-            (player === 'player2' && player1 === 'attack');
-
-          if (!wasTargetedByAttack) {
-            messages.push(`${actor.name.french} se met en position défensive.`);
+  
+    const tryDodge = () => {
+      return Math.random() >= 0.33; // 66% de chance d'échouer l'esquive
+    };
+  
+    // Fonction qui gère un coup d'un joueur
+    const processPlayer = (attacker, attackerAction, defender, defenderAction, setDefender, nameAttacker, nameDefender) => {
+      if (attacker.currentHP <= 0) return;
+  
+      if (attackerAction === 'attack') {
+        if (defenderAction === 'dodge') {
+          const dodged = tryDodge();
+          if (dodged) {
+            messages.push(`${nameDefender} a esquivé l'attaque de ${nameAttacker} avec succès !`);
+            return;
+          } else {
+            messages.push(`${nameDefender} a tenté d’esquiver mais a échoué !`);
+            // il prend quand même les dégâts
           }
         }
+        const { newHP, damage } = doAttack(attacker, defender);
+        messages.push(`${nameAttacker} a infligé ${damage} dégâts à ${nameDefender}.`);
+  
+        // Mise à jour locale
+        setDefender(prev => ({ ...prev, currentHP: newHP }));
+  
+        // Optionnel : update en base
+        updateHP(defender.id, newHP);
+  
+      } else if (attackerAction === 'dodge') {
+        const targeted = (attacker === p1 && player2 === 'attack') || (attacker === p2 && player1 === 'attack');
+        if (!targeted) {
+          messages.push(`${nameAttacker} esquive mais personne ne l'attaque.`);
+        }
       }
+    };
+  
+    // Premier joueur
+    if (first === 'player1') {
+      processPlayer(
+        p1,
+        player1,
+        p2,
+        player2,
+        setPokemon2,
+        p1.name.french,
+        p2.name.french
+      );
+    } else {
+      processPlayer(
+        p2,
+        player2,
+        p1,
+        player1,
+        setPokemon1,
+        p2.name.french,
+        p1.name.french
+      );
     }
-
+  
+    // Deuxième joueur
+    if (second === 'player1') {
+      processPlayer(
+        p1,
+        player1,
+        p2,
+        player2,
+        setPokemon2,
+        p1.name.french,
+        p2.name.french
+      );
+    } else {
+      processPlayer(
+        p2,
+        player2,
+        p1,
+        player1,
+        setPokemon1,
+        p2.name.french,
+        p1.name.french
+      );
+    }
+  
+    // Affichage des messages
     let index = 0;
     const showNextMessage = () => {
       if (index < messages.length) {
@@ -167,9 +197,11 @@ function Fight() {
         setProcessing(false);
       }
     };
-
+  
     showNextMessage();
   };
+  
+  
 
   const resetFight = () => {
     setPokemon1(null);

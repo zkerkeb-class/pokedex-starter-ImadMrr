@@ -110,3 +110,14 @@
   transition: all 0.3s ease-in-out;
 }
 
+.favorite-icon {
+  position: absolute;
+  bottom: 10px; /* en bas au lieu de top */
+  right: 10px;  /* toujours à droite */
+  transition: transform 0.2s ease;
+}
+
+.favorite-icon:hover {
+  transform: scale(1.2);
+}
+
